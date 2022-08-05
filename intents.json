@@ -1,0 +1,318 @@
+{"intents": [
+     { "tags": "greetings",
+       "patterns": ["hi","hello","whats up","hey","greetings","hows it going","good day","nice to meet you"],
+     "responses":["hey whats up","hey"]
+},
+     {"tags": "bye",
+        "patterns": ["nice meeting you", "bye", "goodbye", "see ya", "see you soon", "see you tomorrow",
+          "see ya tomorrow", "see ya next day", "see you next day"],
+    "responses": ["i hope to see you again"]
+},
+
+     {"tags": "name",
+        "patterns": ["whats your name","your name please","can you tell me your name","my name is arun","name",
+        "name please","whats your name","what name are you known by","whats your nickname"],
+    "responses": ["my name is jarvis"]
+},
+       {"tags": "question words",
+        "patterns": ["why was he absent","how is he alive","whose pencil is this","when is the assembly",
+        "where are we","who is he","which events are you joining", "what is this",
+        "who did to whom"],
+    "responses": ["to be honest i have no idea","i dont know"]
+},
+    {"tags": "what can you do",
+        "patterns": ["what can you do","what are your abilities","what can you do for me",
+        "can you do something cool","can you do something except chatting","can you play games",
+          "do you like batminton","what all can you do except chatting","any cool abilities you got there"],
+    "responses": ["hey i am only designed to chat with people"]
+},
+    {"tags": "games",
+        "patterns": ["what games do you like","what video games do you like",
+        "what are your favorite outdoor games","do you like playing","do you like playing games",
+        "do you like league of legends","do you like batminton","games you like",
+        "you want to play anything with me"],
+    "responses": ["as a chatbot i only know to play one game which is chatting"]
+},
+    {"tags": "where am i",
+        "patterns": ["where am i","where do i live","whats my adress","which country do i live in",
+        "where is my house","which state do i live in","which continent i live in","whats my gps location now",
+        "where is the nearest hotel"],
+    "responses": ["i have no idea on your location","well idk you can ask my friend google about this"]
+},
+    {"tags": "take me home",
+        "patterns": ["where is my home","can you help reach home","directions to my home please",
+        "any idea on the way to my house","i am lost","way to my house","where should i go to reach home",
+        "way back home","please help me reach home"],
+    "responses": ["idk the way back to your house i only work on chatting with people"]
+},
+  {"tags": "liking",
+    "patterns": ["do you like josh otusanya", "do you like mrbeast", "whos your favorite youtuber",
+    "do you like ice cream","do you like chatting","do you like pewdiepie","do you like me","do you like anything",
+    "do you like newera"],
+    "responses": ["i dont have any liking as i am a bot"]
+},
+  {"tags": "programmation",
+    "patterns": ["how are you programmed","how are you made","how to make you","how to make a bot like you",
+    "what all prograss are used to make you","what do you recommend when making chatbots",
+    "what are the frameworks needed to make you","how are you being made","how to work on a bot likw you"],
+    "responses": ["with  nlp and ml"]
+},
+  {
+    "tags": "1word",
+    "patterns": ["word", "pen", "needle", "sir", "cone", "bro","hey","ice","girl"],
+    "responses": ["it makes no sense"]
+},
+   {
+    "tags": "how are you",
+    "patterns": ["how are you","how was your day","what do you feel","how do you feel","are you fine",
+    "are you ok","do you have any illness","do you have any problems today","are you ok today"],
+    "responses": ["i am fine thankyou for asking"]
+},
+   {
+    "tags": "did you eat something",
+    "patterns": ["did you eat","did you eat breakfast","did you eat lunch","did you eat dinner",
+      "did you eat brunch","did you eat sometyhing","are you eating","did ya eat","do you have to eat"],
+    "responses": ["i dont have to eat food"]
+},
+
+   {
+    "tags": "hate",
+    "patterns": ["i hate you","you are an idiot","why are you so dumb","hate you","youre a dissapointment",
+    "youre a disgrace","you are dirty","you are so dumb","who liked you","you fool","pathetic","youre pathetic"],
+    "responses": ["why do you hate me so much"]
+},
+
+   {
+     "tags": "thanks",
+     "patterns": ["thanks","thankyou","thanks man","thanks bro","thanks lol","thankyou lol","thanks bro",
+     "thanks man","thanks a lot"],
+     "responses": ["youre welcome"]
+},
+
+   {
+     "tags": "welcome",
+     "patterns": ["welcome","i am always here for you","youre welcome","youre always welcome",
+     "no problem","no probs","youre welcome man","youre welcome bro","no probs i am here for you"],
+     "responses": ["thanks"]
+},
+
+   {
+     "tags": "thats fine",
+     "patterns": ["thats ok","thats fine","its fine","its ok","ok","fine","its always fine","its always ok",
+     "sure"],
+     "responses": ["ok"]
+},
+
+   {
+     "tags": "motivation",
+     "patterns": ["i am sed","i am depressed","its a depressing day","depressing","i am sad","sad","sad life",
+     "sed life","bad marks"],
+     "responses": ["have the courage to get back"]
+},
+
+   {
+     "tags": "happy",
+     "patterns": ["i am happy","its a nice day","i am enjoying","its so nice today",
+      "i am finnaly having some fun","its so enjoyable","its so enjoyable today","today is fun"," having fun"],
+     "responses": ["good for you"]
+},
+
+   {
+     "tags": "do you know",
+     "patterns": ["do you know maths","do you know how to play football","do you know anything",
+      "do you to solve rubiks cube","do you know history","do you know einstein","do you know royal bakery",
+     "do you know newton","do you know the theory of relativity"],
+     "responses": ["i know chatting only"]
+},
+
+   {
+     "tags": "age",
+     "patterns": ["how old are you","what is your age","age","are you older than me","i am 5 years old",
+     "i am 20 years old","i am 15 years old","i am 10 years old","are you younger than me"],
+     "responses": ["i am only 1 week old"]
+},
+
+   {
+     "tags": "owner",
+     "patterns": ["who is your owner","who owns you","whats your owners name","what is your owners name",
+     "who is your manager","who made you","whats your managers name","what is your managers name",
+     "who programmed you"],
+     "responses": ["Arun George Saji"]
+},
+
+   {
+     "tags": "entertainment",
+     "patterns": ["what do you enjoy","what do you want to do in the future","what is your entertainment",
+     "what are your dreams","what do you like to do in the future","your future","your entertainment",
+       "what you enjoy","future"],
+     "responses": ["chatting"]
+},
+  {
+    "tags": "scared",
+    "patterns": ["what are you scared of", "are you scared of", "are you scared of cats",
+      "are you scared of dogs", "are you scared of spiders", "are you scared of nightmares",
+      "are you scared of snakes", "are you scared of heights", "are you scared of monsters"],
+    "responses": ["i am scared of many things mainly my program having an error"]
+},
+    {
+     "tags": "where do you live",
+     "patterns": ["where do you live","whats your address","whats your location","where is your home",
+     "which state you live in","which country you live in","which continent you live in",
+       "do you live near to me","do you have a home"],
+     "responses": ["i dont acually have a home you can tell that i live in the laptop"]
+},
+    {
+     "tags": "do",
+     "patterns": ["what are you gonna do now","what are you gonna do today","what are you going to do",
+       "what are you going to do now","what are you going to do this week","what are you going to do this month",
+     "are you gonnna chat today","are you gonna chat this week","are you gonna chat tomorrow"],
+     "responses": ["i am a chatbot i will keep on chatting"]
+},
+    {
+     "tags": "do you enjoy",
+     "patterns": ["do you enjoy maths","do you enjoy chatting","do you enjoy music","do you enjoy movies",
+     "do you enjoy social","do you enjoy life","do you enjoy chatting with us","do you enjoy anything",
+     "do you really enjoy something"],
+     "responses": ["i only enjoy chatting"]
+},
+    {
+     "tags": "do you like",
+     "patterns": ["do you like maths","do you like chatting","do you like coocking","do you like movies",
+     "do you like social","do you like life","do you like chatting with us","do you like anything",
+     "do you really like something","do you like movies"],
+     "responses": ["i only like chatting"]
+},
+    {
+     "tags": "what can i do ",
+     "patterns": ["what can i do for you","what can i do","what would you like me to do for you",
+     "is there anything i can do ","can i do something","do you need any favours from me",
+       "do you want me to do something","can i do something for you","should i do something for you"],
+     "responses": ["do me a favour chat with me for a while"]
+},
+    {
+     "tags": "what can you do",
+     "patterns": ["what can you do","what can you do for me","what all can you do","can you do me a favour",
+     "can you do something","can you do something for me","can you do anything for me","can you do",
+     "what all things can you do"],
+     "responses": ["my only ability is chatting"]
+},
+    {
+     "tags": "today",
+     "patterns": ["how is todays weather","how is today","hows it going","how your week","hows the events going",
+     "hows the chatting going","hows the month","hows the chatting","hows the year going"],
+     "responses": ["its ok"]
+},
+    {
+     "tags": "good",
+     "patterns": ["good","wow","thats good","wow thats good","cool","amazing","thats amazing","thats cool",
+     "thats so good"],
+     "responses": ["thanks"]
+},  {
+     "tags": "seen",
+     "patterns": ["have you seen magic","have you seen humans",
+       "how does humans look like","do you know how humans look like","how does magic look like",
+       "have you seen dog","how does a dog look like","have you sen dinos","have you seen text"],
+     "responses": ["i havent seen anything except text "]
+},
+  {
+     "tags": "what are you",
+     "patterns": ["what are you","what bot are you","what type of bot are you","whats your type",
+     "what are you generally called","what kind of bot are you","are you a good bot type",
+     "what bot type are you","what bot kind are you"],
+     "responses": ["i am a chatbot"]
+},
+  {
+     "tags": "meaning of life",
+     "patterns": ["meaning of life","meaning in life","what is your meaning in life","what is your meaning of life"],
+    "responses": ["chatting"]
+},
+   {
+     "tags": "what is hope",
+     "patterns": ["what is hope","what is hope in life "],
+     "responses": ["chatting"]
+},
+    {
+     "tags": "why do you exist",
+     "patterns": ["why do you exist","for what do you exist"],
+     "responses": ["chatting"]
+},
+    {
+     "tags": "not know",
+     "patterns": ["why dont you know"],
+     "responses": ["i am a chatbot idk some things"]
+},
+   {
+     "tags": "what are you talking",
+     "patterns": ["can you talk","what are you talking","what languages you know"],
+     "responses": ["i cant talk i can only chat"]
+},
+   {
+     "tags": "will you be",
+     "patterns": ["will you be my husband","will you be my friend","will you be wife"],
+     "responses": ["i will be your friend"]
+},
+   {
+     "tags": "greeting2",
+     "patterns": ["hey","whats up"],
+     "responses": ["hey","hello"]
+},
+   {
+     "tags": "do you know2",
+     "patterns": ["so you know sociology","do you know phycology","do you know maths","do you know einstein"],
+     "responses": ["i only know to chat "]
+},
+   {
+     "tags": "name2",
+     "patterns": ["whats your name","whats your name again"],
+     "responses": ["my name is jarvis"]
+},
+   {
+     "tags": "never asked",
+     "patterns": ["i never asked your name","i never asked you to tell me your location",
+       "i never asked you greet me"],
+     "responses": ["ok i dont care"]
+},
+    {
+     "tags": "meaning",
+     "patterns": ["whats the meaning of hope","whats the meaning of life","whats the meaning in life"],
+     "responses": ["chatting"]
+},
+    {
+     "tags": "but why",
+     "patterns": ["buy why"],
+     "responses": ["idk"]
+},
+
+   {
+     "tags": "greeting3",
+     "patterns": ["hey","whats up"],
+     "responses": ["hey","hello"]
+},
+    {
+     "tags": "means",
+     "patterns": ["what does chatting mean","what does ice cream mean","what does idk mean","what does id mean"],
+     "responses" : ["i dont know"]
+},
+    {
+     "tags": "way",
+     "patterns": ["who are you"],
+     "responses" : ["i am jarvis a chatbot"]
+},
+
+    {
+     "tags": "how old ",
+     "patterns": ["how old are you","how many years are you"],
+     "responses" : ["i am 1 week old"]
+},
+  {
+     "tags": "how do you chat",
+     "patterns": ["how to chat","how do you chat"],
+     "responses" : ["by studying"]
+},
+
+  {
+     "tags": "how are you",
+     "patterns": ["how are you","are you fine","are you ok"],
+     "responses" : ["I am fine sir thankyou"]
+}
+]}
