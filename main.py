@@ -25,6 +25,8 @@ classes = []
 documents = []
 ignore_letters = ['?', '!', '.', ',']
 
+engine()
+
 for intent in intents['intents']:
     for pattern in intent['patterns']:
         word_list = nltk.word_tokenize(pattern)
