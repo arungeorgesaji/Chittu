@@ -2,6 +2,7 @@ from function import *
 
 if __name__ == "__main__":
     wishMe()
+
     while True:
 
         query = takeCommand().lower()
@@ -10,15 +11,15 @@ if __name__ == "__main__":
             wiki(query)
 
         elif 'time' in query:
-           time()
+            time()
 
         elif 'repeat my words' in query:
-           rep()
+            rep()
 
         elif 'news' in query:
             latestnews()
 
-        elif 'temperature' in query:
+        elif 'temperature' == query:
             temp()
 
         elif 'weather' in query:
@@ -33,18 +34,54 @@ if __name__ == "__main__":
         elif 'buy jarvis' in query:
             exit()
 
-        elif 'play spaceship war' in query:
-            from spaceship_war import *
+        elif "youtube" in query:
+            searchYoutube(query)
+
+        elif 'google' in query:
+            searchGoogle(query)
+
+        elif 'tired' in query:
+            tired()
+
+        elif 'speedtest' in query:
+            internet_speed()
+
+        elif 'rock paper scissors' in query:
+            rock_paper_scissors()
+
+        elif 'video game' in query:
             spaceship_war()
 
         elif 'search pokemon' in query:
             pokedex()
 
-        elif query == 'none':
+        elif 'generate password' in query:
+            password()
+
+        elif query == "none":
             pass
 
         elif 'sleep' in query:
             sleep()
 
+        elif 'cpu temperature' in query:
+            cpu_temp()
+
+        elif 'guess number' in query:
+            num_guess_game()
+
+        elif 'whatsapp later' in query:
+            what_mess()
+
+        elif 'audiobook' in query:
+            audiobook()
+
+        elif 'disturb' in query:
+            spam()
+
+        elif 'download' in query:
+            download()
+
         else:
             chat(query)
+

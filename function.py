@@ -1,3 +1,4 @@
+import logging
 import nltk
 import numpy as np
 import random
@@ -9,16 +10,23 @@ import wikipedia
 import webbrowser
 import speech_recognition as sr
 import sys
-import pypokedex
 import requests
 import time
 import pyautogui
 from bs4 import BeautifulSoup
-import keyboard
 from waiting import wait
 import os
+import pypokedex
+import keyboard
+import threading
+import wmi
+import pywhatkit
+import speedtest
+import PyPDF2
+from pytube import YouTube
+from tkinter import *
 
-from jarvis import *
+print("please wait until we get the system ready")
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -61,24 +69,18 @@ def exit():
     pyttsx3.speak(res)
     sys.exit()
 
-def chat(query):
-    ints = predict_class(query)
-    res = get_response(ints, intents)
-    print(res)
-    pyttsx3.speak(res)
-
 def takeCommand():
 
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
         r.pause_threshold = 1
-        r.adjust_for_ambient_noise(source)
+        r.adjust_for_ambient_noise(source, duration=1)
         audio = r.listen(source)
 
     try:
         print("Recognizing...")
-        query = r.recognize_google(audio, language='en-in')
+        query = r.recognize_google(audio, language='en-SG')
         print(f"User said: {query}\n")
 
     except Exception as e:
@@ -215,6 +217,108 @@ def closeappweb(query):
             if app in query:
                 os.system(f"taskkill /f /im {dictapp[app]}.exe")
 
+def searchYoutube(query):
+        speak("This is what I found for your search!")
+        query = query.replace("youtube search", "")
+        query = query.replace("youtube", "")
+        query = query.replace("jarvis", "")
+        web = "https://www.youtube.com/results?search_query=" + query
+        webbrowser.open(web)
+        pywhatkit.playonyt(query)
+        speak("Done, Sir")
+
+def searchGoogle(query):
+        import wikipedia as googleScrap
+        query = query.replace("jarvis","")
+        query = query.replace("google search","")
+        query = query.replace("google","")
+        speak("This is what I found on google")
+
+        try:
+            pywhatkit.search(query)
+            result = googleScrap.summary(query,1)
+            speak(result)
+
+        except:
+            speak("No speakable output available")
+
+def tired():
+    speak("Playing your favourite songs, sir")
+    a = (1, 2, 3)
+    b = random.choice(a)
+    if b == 1:
+        webbrowser.open("https://www.youtube.com/watch?v=Mvaosumc4hU&ab_channel=BoyWithUke")
+    if b == 2:
+        webbrowser.open("https://www.youtube.com/watch?v=omVvuL0lOes&ab_channel=RachelGardner")
+    if b == 3:
+        webbrowser.open("https://www.youtube.com/watch?v=QFJQHpk7hnU&ab_channel=ShadowMusic")
+
+def internet_speed():
+    wifi = speedtest.Speedtest()
+    upload_net = wifi.upload() / 1048576  # Megabyte = 1024*1024 Bytes
+    download_net = wifi.download() / 1048576
+    print("Wifi Upload Speed is", upload_net)
+    print("Wifi download speed is ", download_net)
+    speak(f"Wifi download speed is {download_net}")
+    speak(f"Wifi Upload speed is {upload_net}")
+
+
+def rock_paper_scissors():
+    speak("Lets Play ROCK PAPER SCISSORS !!")
+    print("LETS PLAYYYYYYYYYYYYYY")
+    i = 0
+    Me_score = 0
+    Com_score = 0
+    while (i < 5):
+        choose = ("rock", "paper", "scissors")  # Tuple
+        com_choose = random.choice(choose)
+        query = takeCommand().lower()
+        if (query == "rock"):
+            if (com_choose == "rock"):
+                speak("ROCK")
+                print(f"Score:- ME :- {Me_score} : COM :- {Com_score}")
+            elif (com_choose == "paper"):
+                speak("paper")
+                Com_score += 1
+                print(f"Score:- ME :- {Me_score} : COM :- {Com_score}")
+            else:
+                speak("Scissors")
+                Me_score += 1
+                print(f"Score:- ME :- {Me_score} : COM :- {Com_score}")
+
+        elif (query == "paper"):
+            if (com_choose == "rock"):
+                speak("ROCK")
+                Me_score += 1
+                print(f"Score:- ME :- {Me_score + 1} : COM :- {Com_score}")
+
+            elif (com_choose == "paper"):
+                speak("paper")
+                print(f"Score:- ME :- {Me_score} : COM :- {Com_score}")
+            else:
+                speak("Scissors")
+                Com_score += 1
+                print(f"Score:- ME :- {Me_score} : COM :- {Com_score}")
+
+        elif (query == "scissors" or query == "scissor"):
+            if (com_choose == "rock"):
+                speak("ROCK")
+                Com_score += 1
+                print(f"Score:- ME :- {Me_score} : COM :- {Com_score}")
+            elif (com_choose == "paper"):
+                speak("paper")
+                Me_score += 1
+                print(f"Score:- ME :- {Me_score} : COM :- {Com_score}")
+            else:
+                speak("Scissors")
+                print(f"Score:- ME :- {Me_score} : COM :- {Com_score}")
+        i += 1
+
+    print(f"FINAL SCORE :- ME :- {Me_score} : COM :- {Com_score}")
+
+logging.disable(logging.WARNING)
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
+
 import tensorflow as tf
 keras =tf.keras
 k = keras.backend
@@ -224,6 +328,10 @@ intents = json.loads(open('intents.json').read())
 words = pickle.load(open('words.pkl', 'rb'))
 classes = pickle.load(open('classes.pkl', 'rb'))
 model = load_model('ai.h5')
+
+from nltk.stem import WordNetLemmatizer
+
+lemmatizer = WordNetLemmatizer()
 
 def clean_up_setence(setence):
     setence_words = nltk.word_tokenize(setence)
@@ -259,6 +367,12 @@ def get_response(intents_list, intents_json):
             break
     return result
 
+def chat(query):
+    ints = predict_class(query)
+    res = get_response(ints, intents)
+    print(res)
+    pyttsx3.speak(res)
+
 def sleep():
     speak('ok sir')
     keyboard.wait('shift')
@@ -266,14 +380,518 @@ def sleep():
 
 def pokedex():
     speak('what pokemon do you want to search on')
-    p = pypokedex.get(name=input(''))
+    try:
 
-    speak(p.name + ' is ' + str(p.dex) + ' in the pokedex ' + 'it weighs ' + str(p.weight) + ' and measures at ' +
+        p = pypokedex.get(name=input(''))
+
+        speak(p.name + ' is ' + str(p.dex) + ' in the pokedex ' + 'it weighs ' + str(p.weight) + ' and measures at ' +
           str(p.height) + ' its a ' + str(p.types) + ' type ' + 'pokemon')
 
+    except Exception as e:
 
-from nltk.stem import WordNetLemmatizer
+        print('that not a pokemon')
+        speak('thats not a pokemon')
+        print('going back to the main program')
+        speak('going back to the main program')
 
-lemmatizer = WordNetLemmatizer()
+def password():
+    lower = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
+             "u", "v", "w", "x", "y", "z"]
+    num = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    symbol = ["#", "*", "@", "&"]
+    password1 = random.choice(lower)
+    password2 = random.choice(lower)
+    password3 = random.choice(num)
+    password4 = random.choice(lower)
+    password5 = random.choice(lower)
+    password6 = random.choice(num)
+    password7 = random.choice(num)
+    password8 = random.choice(lower)
+    password9 = random.choice(symbol)
+    password10 = random.choice(lower)
+    password11 = random.choice(symbol)
+    password12 = random.choice(num)
+    password13 = random.choice(symbol)
+    password14 = random.choice(symbol)
+    password15 = random.choice(lower)
+    password16 = random.choice(lower)
+    password17 = random.choice(num)
+    password18 = random.choice(num)
+    password19 = random.choice(lower)
+    password20 = random.choice(lower)
+    upper1 = str(password2.upper())
+    upper2 = str(password4.upper())
+    upper3 = str(password5.upper())
+    upper4 = str(password19.upper())
+    upper5: str = str(password20.upper())
+    speak('youre generated password is')
+    print(password1 + upper1 + password3 + upper2 + upper3 + password6 + password7 +
+          password8 + password9 + password10 + password11 + password12 + password13 + password14 + password15 +
+          password16 + password17 + password18 + upper4 + upper5)
+
+def cpu_temp():
+    w = wmi.WMI(namespace=r'root\wmi')
+    temperature = w.MSAcpi_ThermalZoneTemperature()[0]
+    temperature = int(temperature.CurrentTemperature / 10.0 - 273.15)
+    print('your cpu is at '+str(temperature)+' degree celcius')
+    speak('your cpu is at '+str(temperature)+' degree celcius')
+
+def num_guess_game():
+
+    global random_number
+    global num
+    print("which difficulty you want")
+    speak("which difficulty you want")
+    print("type help if you need to know more")
+    speak("type help if you need to know more")
+    dif = input('difficulty:')
+    dif.islower()
+    lb = False
+    chance = 0
+    lb2 = False
+
+    while not lb:
+
+        if dif == 'help':
+            print("there are three dificulties easy,medium,hard,insane easy is random number from 1 to 10 medium is from 1 to 100 hard is from 1 to 1,000 and insane from 1 to 10,000")
+            speak("there are three dificulties easy,medium,hard,insane easy is random number from 1 to 10 medium is from 1 to 100 hard is from 1 to 1,000 and insane from 1 to 10,000")
+            dif = input('difficulty:')
+            dif.islower()
+
+        if dif == 'easy':
+            random_number = int(random.randint(1, 10))
+            print("you chose easy difficulty")
+            speak("you chose easy difficulty")
+            lb = True
+
+        elif dif == 'medium':
+            random_number = int(random.randint(1, 100))
+            print("you chose medium difficulty")
+            speak("you chose medium difficulty")
+            lb = True
+
+        elif dif == 'hard':
+            random_number = int(random.randint(1, 1000))
+            print("you chose hard difficulty")
+            speak("you chose hard difficulty")
+            lb = True
+
+        elif dif == 'insane':
+            random_number = int(random.randint(1, 10000))
+            print("you chose insane difficulty")
+            speak("you chose insane difficulty")
+            lb = True
+
+        else:
+            print("thats not a difficulty type help to know about the difficulties")
+            speak("thats not a difficulty type help to know about the difficulties")
+            dif = input('difficulty:')
+            dif.islower()
+
+        if dif =='easy':
+                print('type  number between 1 to 10 or type stop to stop guessing')
+                speak('type  number between 1 to 10 or type stop to stop guessing')
+                num = input('number:')
+
+
+        if dif == 'medium':
+                print('type  number between 1 to 100 or type stop to stop guessing')
+                speak('type  number between 1 to 100 or type stop to stop guessing')
+                num = input('number:')
+
+
+        if dif == 'hard':
+                print('type  number between 1 to 1000 or type stop to stop guessing')
+                speak('type  number between 1 to 1000 or type stop to stop guessing')
+                num = input('number:')
+
+
+        if dif == 'insane':
+                print('type  number between 1 to 10000 or type stop to stop guessing')
+                speak('type  number between 1 to 10000 or type to stop guessing')
+                num = input('number:')
+
+        while not lb2:
+
+            if num == random_number:
+                chance += 1
+                print('thats correct')
+                speak('thats correct')
+                print('you took' + str(chance) + 'try to figure the number')
+                speak('you took' + str(chance) + 'try to figure the number')
+                lb2 = True
+
+            elif num == 'stop':
+                print('the correct answer was ' + str(random_number))
+                speak('the correct answer was ' + str(random_number))
+                lb2 = True
+
+            else:
+                print(num)
+                print('thats wrong try again')
+                speak('thats wrong try again')
+                chance += 1
+
+                if dif == 'easy':
+                    print('type  number between 1 to 10 or type stop to stop guessing')
+                    speak('type  number between 1 to 10 or type stop to stop guessing')
+                    num = input('number:')
+
+                if dif == 'medium':
+                    print('type  number between 1 to 100 or type stop to stop guessing')
+                    speak('type  number between 1 to 100 or type stop to stop guessing')
+                    num = input('number:')
+
+                if dif == 'hard':
+                    print('type  number between 1 to 1000 or type stop to stop guessing')
+                    speak('type  number between 1 to 1000 or type stop to stop guessing')
+                    num = input('number:')
+
+                if dif == 'insane':
+                    print('type  number between 1 to 10000 or type stop to stop guessing')
+                    speak('type  number between 1 to 10000 or type to stop guessing')
+                    num = input('number:')
+
+def what_mess():
+
+    lb = False
+    phone = input('type phone number put +country code and write number without spaces:')
+    hour = input('type the hour in which you want to send the message in universal time:')
+    minute = input('type the minute in which you want to send the message:')
+    print('tip you can type stop to stop this function')
+    print('the time you give should be more than 30 seconds away')
+
+    mess = input('message:')
+
+    if mess == 'stop':
+
+        print('okay going back to main program')
+        speak('okay going back to main program')
+
+    else:
+
+        try:
+
+            pywhatkit.sendwhatmsg(phone, mess, int(hour), int(minute))
+
+        except Exception as e:
+
+            print('there seems to be a problem with given info')
+            speak('there seems to be a problem with given info')
+            print('returning to main program')
+            speak('returning to main program')
+
+def audiobook():
+
+    excep = False
+
+    print('right click your pdf and click copy as path,ctrl+v here and remove double quotes to read pdf')
+    speak('right click your pdf and click copy as path ctrl+v here and remove double quotes to read pdf')
+
+    pdf = input('pdf:')
+
+    try:
+        book = open(pdf, 'rb')
+
+    except Exception as e:
+
+        excep = True
+
+        print('sorry that doesnt match with any pdf,returning to main program')
+        speak('sorry that doesnt math with any pdf,returning to main program')
+
+    if excep == False:
+
+        reader = PyPDF2.PdfFileReader(book)
+        page = reader.pages[0]
+        text = page.extract_text()
+
+        speak(text)
+
+def spam():
+
+    print('keep the app which you want to spam in the side and open when i tell')
+    speak('keep the app which you want to spam in the side and open when i tell')
+
+    limit = input("number of times to spam:-")
+    message = input("message:-")
+
+    i = 0
+
+    print('open the app now open from the app correct person to spam also')
+    speak('open the app now open from the app correct person to spam also')
+
+    print('press spacebar when your ready')
+    speak('press spacebar when your ready')
+
+    keyboard.wait('spacebar')
+
+    try:
+
+        while i < int(limit):
+
+            pyautogui.typewrite(message)
+            pyautogui.press("enter")
+            i += 1
+
+    except Exception as e:
+
+            print('there seems to be a problem with given info')
+            speak('there seems to be a problem with given info')
+            print('returning to main program')
+            speak('returning to main program')
+
+def download():
+
+    root = Tk()
+    root.resizable(0, 0)
+    root.attributes('-fullscreen', True)
+    root.title("youtube video downloader")
+
+    Label(root, text='Youtube Video Downloader', font='arial 50 bold').pack()
+
+    link = StringVar()
+    Label(root, text='Paste Link Here:', font='arial 35 bold').place(x=500, y=250)
+    link_enter = Entry(root, width=100, textvariable=link).place(x=350, y=350)
+
+
+    def Downloader():
+
+        path = "C:/Users/DELL/Downloads"
+
+        try:
+
+            speak('please wait even if the program tells not responding')
+            print('please wait even if the program tells not responding')
+
+            url = YouTube(str(link.get()))
+            video = url.streams.first()
+            video.download(path)
+            root.destroy()
+
+            print('youre video has been downloaded to downloads')
+            speak('youre video has been downloaded to downloads')
+
+        except Exception as e:
+
+            root.destroy()
+            print('there seems to be a problem')
+            speak('there seems to be a problem')
+            print('returning to the main program')
+            speak('returning to the main program')
+
+
+
+    Button(root, text='DOWNLOAD', font='arial 25 bold', bg='pale violet red', padx=2, command=Downloader).place(x=550,
+                                                                                                                y=400)
+    root.mainloop()
+
+def spaceship_war():
+
+    import pygame
+
+    pygame.font.init()
+    pygame.mixer.init()
+
+    WIDTH, HEIGHT = 900, 500
+    WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("spaceship war")
+
+    WHITE = (255, 255, 255)
+    BLACK = (0, 0, 0)
+    RED = (255, 0, 0)
+    YELLOW = (255, 255, 0)
+
+    FPS = 60
+
+    BULLET_VEL = 7
+
+    MAX_BULLETS = 3
+
+    w, h = 55, 40
+
+    YELLOW_HIT = pygame.USEREVENT + 1
+    RED_HIT = pygame.USEREVENT + 2
+
+    BORDER = pygame.Rect(WIDTH // 2 - 5, 0, 10, HEIGHT)
+
+    BULLET_HIT_SOUND = pygame.mixer.Sound(os.path.join('Assets', 'Grenade+1.mp3'))
+    BULLET_FIRE_SOUND = pygame.mixer.Sound(os.path.join('Assets', 'Gun+Silencer.mp3'))
+
+
+    HEALTH_FONT = pygame.font.SysFont('comicsans', 40)
+    WINNER_FONT = pygame.font.SysFont('comicsans', 100)
+
+    VEL = 5
+
+    yellow_spaceship = pygame.image.load(os.path.join('Assets', 'spaceship_yellow.png'))
+    yellow_spaceship = pygame.transform.rotate(pygame.transform.scale(yellow_spaceship, (w, h)), 90)
+
+    red_spaceship = pygame.image.load(os.path.join('Assets', 'spaceship_red.png'))
+    red_spaceship = pygame.transform.rotate(pygame.transform.scale(red_spaceship, (w, h)), 270)
+
+    SPACE = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'space.png')), (WIDTH, HEIGHT))
+
+    def draw_window(red, yellow, red_bullets, yellow_bullets, red_health, yellow_health):
+
+        WIN.blit(SPACE, (0, 0))
+        pygame.draw.rect(WIN, BLACK, BORDER)
+
+        red_health_text = HEALTH_FONT.render("Health: " + str(red_health), 1, WHITE)
+        yellow_health_text = HEALTH_FONT.render("Health: " + str(yellow_health), 1, WHITE)
+
+        WIN.blit(red_health_text, (WIDTH - red_health_text.get_width() - 10, 10))
+        WIN.blit(yellow_health_text, (10, 10))
+
+        WIN.blit(yellow_spaceship, (yellow.x, yellow.y))
+        WIN.blit(red_spaceship, (red.x, red.y))
+
+        for bullet in red_bullets:
+            pygame.draw.rect(WIN, RED, bullet)
+
+        for bullet in yellow_bullets:
+            pygame.draw.rect(WIN, YELLOW, bullet)
+
+        pygame.display.update()
+
+    def yellow_movement(keys_pressed, yellow):
+
+        if keys_pressed[pygame.K_a] and yellow.x - VEL > 0:
+            yellow.x -= VEL
+
+        if keys_pressed[pygame.K_d] and yellow.x + VEL + yellow.width < BORDER.x:
+            yellow.x += VEL
+
+        if keys_pressed[pygame.K_w] and yellow.y - VEL > 0:
+            yellow.y -= VEL
+
+        if keys_pressed[pygame.K_s] and yellow.y + VEL + yellow.height < HEIGHT - 15:
+            yellow.y += VEL
+
+    def red_movement(keys_pressed, red):
+
+        if keys_pressed[pygame.K_LEFT] and red.x - VEL > BORDER.x + BORDER.width:
+            red.x -= VEL
+
+        if keys_pressed[pygame.K_RIGHT] and red.x + VEL + red.width < WIDTH:
+            red.x += VEL
+
+        if keys_pressed[pygame.K_UP] and red.y - VEL > 0:
+            red.y -= VEL
+
+        if keys_pressed[pygame.K_DOWN] and red.y + VEL + red.height < HEIGHT - 15:
+            red.y += VEL
+
+    def handle_bullets(yellow_bullets, red_bullets, yellow, red):
+
+        for bullet in yellow_bullets:
+
+            bullet.x += BULLET_VEL
+
+            if red.colliderect(bullet):
+                pygame.event.post(pygame.event.Event(RED_HIT))
+                yellow_bullets.remove(bullet)
+
+            elif bullet.x > WIDTH:
+                yellow_bullets.remove(bullet)
+
+        for bullet in red_bullets:
+
+            bullet.x -= BULLET_VEL
+
+            if yellow.colliderect(bullet):
+                pygame.event.post(pygame.event.Event(YELLOW_HIT))
+                red_bullets.remove(bullet)
+
+            elif bullet.x < 0:
+                red_bullets.remove(bullet)
+
+    def draw_winner(text):
+
+        draw_text = WINNER_FONT.render(text, 1, WHITE)
+        WIN.blit(draw_text, (WIDTH / 2 - draw_text.get_width() / 2, HEIGHT / 2 - draw_text.get_height() / 2))
+
+        pygame.display.update()
+        pygame.time.delay(3000)
+
+    def video_game():
+
+        red = pygame.Rect(700, 300, w, h)
+        yellow = pygame.Rect(100, 300, w, h)
+
+        red_bullets = []
+        yellow_bullets = []
+
+        red_health = 10
+        yellow_health = 10
+
+        clock = pygame.time.Clock()
+        run = True
+
+        while run:
+
+            clock.tick(FPS)
+
+            for event in pygame.event.get():
+
+                if event.type == pygame.QUIT:
+
+                    run = False
+
+                if event.type == pygame.KEYDOWN:
+
+                    if event.key == pygame.K_LCTRL and len(yellow_bullets) < MAX_BULLETS:
+                        bullet = pygame.Rect(yellow.x + yellow.width, yellow.y + yellow.height // 2 - 2, 10, 5)
+                        yellow_bullets.append(bullet)
+                        BULLET_FIRE_SOUND.play()
+
+                    if event.key == pygame.K_RCTRL and len(red_bullets) < MAX_BULLETS:
+                        bullet = pygame.Rect(red.x, red.y + red.height // 2 - 2, 10, 5)
+                        red_bullets.append(bullet)
+                        BULLET_FIRE_SOUND.play()
+
+                if event.type == RED_HIT:
+                    red_health -= 1
+                    BULLET_HIT_SOUND.play()
+
+                if event.type == YELLOW_HIT:
+                    yellow_health -= 1
+                    BULLET_HIT_SOUND.play()
+
+            winner_text = ""
+            if red_health <= 0 and yellow_health <= 0:
+                speak('both reached 0 health at the same time,giving 5 health each')
+                red_health = 5
+                yellow_health = 5
+            else:
+                if red_health <= 0:
+                    winner_text = "Yellow Wins!"
+
+                if yellow_health <= 0:
+                    winner_text = "Red Wins"
+
+                if winner_text != "":
+                    draw_winner(winner_text)
+                    break
+
+            keys_pressed = pygame.key.get_pressed()
+            yellow_movement(keys_pressed, yellow)
+            red_movement(keys_pressed, red)
+
+            handle_bullets(yellow_bullets, red_bullets, yellow, red)
+
+            draw_window(red, yellow, red_bullets, yellow_bullets, red_health, yellow_health)
+        pygame.quit()
+
+    speak('you can close the game to continue main program')
+    video_game()
+
+
+
+
+
+
+
+
 
 

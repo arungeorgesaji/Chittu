@@ -25,7 +25,6 @@ classes = []
 documents = []
 ignore_letters = ['?', '!', '.', ',']
 
-engine()
 
 for intent in intents['intents']:
     for pattern in intent['patterns']:
@@ -72,6 +71,6 @@ model.add(Dense(len(train_y[0]), activation='softmax'))
 
 sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
-hist = model.fit(np.array(train_x), np.array(train_y), epochs=50, batch_size=32 , verbose=1)
+hist = model.fit(np.array(train_x), np.array(train_y), epochs=200, batch_size=32, verbose=1)
 model.save('ai.h5', hist)
 print('done')
