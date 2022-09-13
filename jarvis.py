@@ -64,9 +64,6 @@ if __name__ == "__main__":
         elif 'sleep' in query:
             sleep()
 
-        elif 'cpu temperature' in query:
-            cpu_temp()
-
         elif 'guess number' in query:
             num_guess_game()
 
@@ -81,6 +78,9 @@ if __name__ == "__main__":
 
         elif 'download' in query:
             download()
+
+        elif 'chat' in query:
+            chatbot()
 
         else:
             chat(query)

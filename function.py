@@ -73,9 +73,9 @@ def takeCommand():
 
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print("Listening...")
         r.pause_threshold = 1
-        r.adjust_for_ambient_noise(source, duration=1)
+        r.adjust_for_ambient_noise(source)
+        print("Listening...")
         audio = r.listen(source)
 
     try:
@@ -428,13 +428,6 @@ def password():
     print(password1 + upper1 + password3 + upper2 + upper3 + password6 + password7 +
           password8 + password9 + password10 + password11 + password12 + password13 + password14 + password15 +
           password16 + password17 + password18 + upper4 + upper5)
-
-def cpu_temp():
-    w = wmi.WMI(namespace=r'root\wmi')
-    temperature = w.MSAcpi_ThermalZoneTemperature()[0]
-    temperature = int(temperature.CurrentTemperature / 10.0 - 273.15)
-    print('your cpu is at '+str(temperature)+' degree celcius')
-    speak('your cpu is at '+str(temperature)+' degree celcius')
 
 def num_guess_game():
 
@@ -885,6 +878,22 @@ def spaceship_war():
 
     speak('you can close the game to continue main program')
     video_game()
+
+def chatbot():
+
+    chat = True
+
+    while chat == True:
+
+        message = input('message:')
+
+        if message == 'assistant':
+            chat = False
+
+        else:
+            ints = predict_class(message)
+            res = get_response(ints, intents)
+            print(res)
 
 
 
