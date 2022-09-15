@@ -14,7 +14,6 @@ import requests
 import time
 import pyautogui
 from bs4 import BeautifulSoup
-from waiting import wait
 import os
 import pypokedex
 import keyboard
@@ -224,7 +223,6 @@ def searchYoutube(query):
         query = query.replace("jarvis", "")
         web = "https://www.youtube.com/results?search_query=" + query
         webbrowser.open(web)
-        pywhatkit.playonyt(query)
         speak("Done, Sir")
 
 def searchGoogle(query):
@@ -377,6 +375,13 @@ def sleep():
     speak('ok sir')
     keyboard.wait('shift')
     speak('hello again sir')
+
+def cpu_temp():
+    w = wmi.WMI(namespace=r'root\wmi')
+    temperature = w.MSAcpi_ThermalZoneTemperature()[0]
+    temperature = int(temperature.CurrentTemperature / 10.0 - 273.15)
+    print('your cpu is at '+str(temperature)+' degree celcius')
+    speak('your cpu is at '+str(temperature)+' degree celcius')
 
 def pokedex():
     speak('what pokemon do you want to search on')

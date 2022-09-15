@@ -34,6 +34,9 @@ if __name__ == "__main__":
         elif 'buy jarvis' in query:
             exit()
 
+        elif 'bhai jarvis' in query:
+            exit()
+
         elif "youtube" in query:
             searchYoutube(query)
 
@@ -43,7 +46,7 @@ if __name__ == "__main__":
         elif 'tired' in query:
             tired()
 
-        elif 'speedtest' in query:
+        elif 'internet speed' in query:
             internet_speed()
 
         elif 'rock paper scissors' in query:
@@ -63,6 +66,9 @@ if __name__ == "__main__":
 
         elif 'sleep' in query:
             sleep()
+
+        elif 'cpu temperature' in query:
+            cpu_temp()
 
         elif 'guess number' in query:
             num_guess_game()
