@@ -17,13 +17,13 @@ from bs4 import BeautifulSoup
 import os
 import pypokedex
 import keyboard
-import threading
 import wmi
 import pywhatkit
 import speedtest
 import PyPDF2
 from pytube import YouTube
 from tkinter import *
+import screen_brightness_control as bc
 
 print("please wait until we get the system ready")
 
@@ -42,7 +42,7 @@ def wishMe():
     else:
         speak("Good Evening!")
 
-    speak("I am Jarvis Sir. Please tell me how may I help you")
+    speak("i am chittu sir how may i help you ")
 
 def wiki(query):
     speak('Searching Wikipedia...')
@@ -56,11 +56,13 @@ def time():
     speak(f"Sir, the time is {strTime}")
 
 def rep():
+
     speak('what do you want me to repeat sir')
     jj = takeCommand()
     speak(f'{jj}')
 
 def exit():
+
     query = 'bye'
     ints = predict_class(query)
     res = get_response(ints, intents)
@@ -70,29 +72,30 @@ def exit():
 
 def takeCommand():
 
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        r.pause_threshold = 1
-        r.adjust_for_ambient_noise(source)
-        print("Listening...")
-        audio = r.listen(source)
+    while query == '':
+        r = sr.Recognizer()
+        with sr.Microphone() as source:
+            r.adjust_for_ambient_noise(source, duration=0.2)
+            print("Listening...")
+            audio = r.listen(source)
+            print("Recognizing...")
+            query = r.recognize_houndify(audio, 'tta9-FhirHytE2PGtmbk9Q==', 'mm_LZwma-32RBJ8FDFIvlx2NlOi2FSkbXEIujEfyc1hWZE1Ki1mGwnBKphEVs0B74FDnD3MAJeMx7qaiiWGLkQ==')
 
-    try:
-        print("Recognizing...")
-        query = r.recognize_google(audio, language='en-SG')
-        print(f"User said: {query}\n")
+            if query == '':
 
-    except Exception as e:
-        print("Say that again please...")
-        speak("Say that again please...")
-        return "None"
-    return query
+                print('say that again please')
+                speak('say that again please')
+
+            else:
+                print(f"User said: {query}\n")
 
 def speak(audio):
+
     engine.say(audio)
     engine.runAndWait()
 
 def latestnews():
+
     api_dict = {
         "business": "https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=68412fb931c1440eab8524ba2128d068",
         "entertainment": "https://newsapi.org/v2/top-headlines?country=in&category=entertainment&apiKey=68412fb931c1440eab8524ba2128d068",
@@ -138,6 +141,7 @@ def latestnews():
     speak("thats all")
 
 def temp():
+
     search = "temperature in kerala"
     url = f"https://www.google.com/search?q={search}"
     r = requests.get(url)
@@ -146,6 +150,7 @@ def temp():
     speak(f"current{search} is {temp}")
 
 def weth():
+
     search = "weather in kerala"
     url = f"https://www.google.com/search?q={search}"
     r = requests.get(url)
@@ -157,6 +162,7 @@ dictapp = {"commandprompt": "cmd", "paint": "paint", "word": "winword", "excel":
            "vscode": "code", "powerpoint": "powerpnt"}
 
 def openappweb(query):
+
     speak("Launching, sir")
     if ".com" in query or ".co.in" in query or ".org" in query:
         query = query.replace("open", "")
@@ -172,6 +178,7 @@ def openappweb(query):
 
 
 def closeappweb(query):
+
     speak("Closing,sir")
     if "one tab" in query or "1 tab" in query:
         pyautogui.hotkey("ctrl", "w")
@@ -217,6 +224,7 @@ def closeappweb(query):
                 os.system(f"taskkill /f /im {dictapp[app]}.exe")
 
 def searchYoutube(query):
+
         speak("This is what I found for your search!")
         query = query.replace("youtube search", "")
         query = query.replace("youtube", "")
@@ -226,6 +234,7 @@ def searchYoutube(query):
         speak("Done, Sir")
 
 def searchGoogle(query):
+
         import wikipedia as googleScrap
         query = query.replace("jarvis","")
         query = query.replace("google search","")
@@ -241,6 +250,7 @@ def searchGoogle(query):
             speak("No speakable output available")
 
 def tired():
+
     speak("Playing your favourite songs, sir")
     a = (1, 2, 3)
     b = random.choice(a)
@@ -252,6 +262,7 @@ def tired():
         webbrowser.open("https://www.youtube.com/watch?v=QFJQHpk7hnU&ab_channel=ShadowMusic")
 
 def internet_speed():
+
     wifi = speedtest.Speedtest()
     upload_net = wifi.upload() / 1048576  # Megabyte = 1024*1024 Bytes
     download_net = wifi.download() / 1048576
@@ -262,6 +273,7 @@ def internet_speed():
 
 
 def rock_paper_scissors():
+
     speak("Lets Play ROCK PAPER SCISSORS !!")
     print("LETS PLAYYYYYYYYYYYYYY")
     i = 0
@@ -314,6 +326,7 @@ def rock_paper_scissors():
 
     print(f"FINAL SCORE :- ME :- {Me_score} : COM :- {Com_score}")
 
+
 logging.disable(logging.WARNING)
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
@@ -332,11 +345,13 @@ from nltk.stem import WordNetLemmatizer
 lemmatizer = WordNetLemmatizer()
 
 def clean_up_setence(setence):
+
     setence_words = nltk.word_tokenize(setence)
     setence_words = [lemmatizer.lemmatize(word) for word in setence_words]
     return setence_words
 
 def bag_of_words(setence):
+
     setence_words = clean_up_setence(setence)
     bag = [0] * len(words)
     for w in setence_words:
@@ -346,6 +361,7 @@ def bag_of_words(setence):
         return np.array(bag)
 
 def predict_class(setence):
+
     bow = bag_of_words(setence)
     res = model.predict(np.array([bow]))[0]
     error_threshold = 0.25
@@ -357,6 +373,7 @@ def predict_class(setence):
     return return_list
 
 def get_response(intents_list, intents_json):
+
     tag = intents_list[0]['intent']
     list_of_intents = intents_json['intents']
     for i in list_of_intents:
@@ -366,17 +383,20 @@ def get_response(intents_list, intents_json):
     return result
 
 def chat(query):
+
     ints = predict_class(query)
     res = get_response(ints, intents)
     print(res)
     pyttsx3.speak(res)
 
 def sleep():
+
     speak('ok sir')
     keyboard.wait('shift')
     speak('hello again sir')
 
 def cpu_temp():
+
     w = wmi.WMI(namespace=r'root\wmi')
     temperature = w.MSAcpi_ThermalZoneTemperature()[0]
     temperature = int(temperature.CurrentTemperature / 10.0 - 273.15)
@@ -384,6 +404,7 @@ def cpu_temp():
     speak('your cpu is at '+str(temperature)+' degree celcius')
 
 def pokedex():
+
     speak('what pokemon do you want to search on')
     try:
 
@@ -400,6 +421,7 @@ def pokedex():
         speak('going back to the main program')
 
 def password():
+
     lower = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
              "u", "v", "w", "x", "y", "z"]
     num = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -900,8 +922,17 @@ def chatbot():
             res = get_response(ints, intents)
             print(res)
 
+def brightness():
 
+    bright = input('type a brightness between 1 to 100:')
 
+    try:
+        bc.set_brightness(bright)
+
+    except:
+        print('thats not a number between 1 to 100,brightness not changed,returning to the main program.')
+        speak('thats not a number between 1 to 100,brightness not changed,returning to the main program.')
+        pass
 
 
 
