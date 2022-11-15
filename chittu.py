@@ -5,7 +5,7 @@ if __name__ == "__main__":
 
     while True:
 
-        query = takeCommand()
+        query = takecommand()
         query.lower()
 
         if 'feature' in query:
@@ -41,10 +41,10 @@ if __name__ == "__main__":
                 exit()
 
             elif "youtube" in query:
-                searchYoutube(query)
+                searchyoutube(query)
 
             elif 'google' in query:
-                searchGoogle(query)
+                searchgoogle(query)
 
             elif 'tired' in query:
                 tired()
@@ -97,7 +97,7 @@ if __name__ == "__main__":
             else:
                 chat(query)
 
-        elif query == 'none':
+        elif query == '':
             print()
 
         else:

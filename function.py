@@ -58,7 +58,7 @@ def time():
 def rep():
 
     speak('what do you want me to repeat sir')
-    jj = takeCommand()
+    jj = takecommand()
     speak(f'{jj}')
 
 def exit():
@@ -70,7 +70,9 @@ def exit():
     pyttsx3.speak(res)
     sys.exit()
 
-def takeCommand():
+def takecommand():
+
+    query = ''
 
     while query == '':
         r = sr.Recognizer()
@@ -82,12 +84,12 @@ def takeCommand():
             query = r.recognize_houndify(audio, 'tta9-FhirHytE2PGtmbk9Q==', 'mm_LZwma-32RBJ8FDFIvlx2NlOi2FSkbXEIujEfyc1hWZE1Ki1mGwnBKphEVs0B74FDnD3MAJeMx7qaiiWGLkQ==')
 
             if query == '':
-
                 print('say that again please')
                 speak('say that again please')
 
             else:
                 print(f"User said: {query}\n")
+            return query
 
 def speak(audio):
 
@@ -223,7 +225,7 @@ def closeappweb(query):
             if app in query:
                 os.system(f"taskkill /f /im {dictapp[app]}.exe")
 
-def searchYoutube(query):
+def searchyoutube(query):
 
         speak("This is what I found for your search!")
         query = query.replace("youtube search", "")
@@ -233,7 +235,7 @@ def searchYoutube(query):
         webbrowser.open(web)
         speak("Done, Sir")
 
-def searchGoogle(query):
+def searchgoogle(query):
 
         import wikipedia as googleScrap
         query = query.replace("jarvis","")
@@ -277,54 +279,54 @@ def rock_paper_scissors():
     speak("Lets Play ROCK PAPER SCISSORS !!")
     print("LETS PLAYYYYYYYYYYYYYY")
     i = 0
-    Me_score = 0
-    Com_score = 0
+    me_score = 0
+    com_score = 0
     while (i < 5):
         choose = ("rock", "paper", "scissors")  # Tuple
         com_choose = random.choice(choose)
-        query = takeCommand().lower()
+        query = takecommand().lower()
         if (query == "rock"):
             if (com_choose == "rock"):
                 speak("ROCK")
-                print(f"Score:- ME :- {Me_score} : COM :- {Com_score}")
+                print(f"Score:- ME :- {me_score} : COM :- {com_score}")
             elif (com_choose == "paper"):
                 speak("paper")
-                Com_score += 1
-                print(f"Score:- ME :- {Me_score} : COM :- {Com_score}")
+                com_score += 1
+                print(f"Score:- ME :- {me_score} : COM :- {com_score}")
             else:
                 speak("Scissors")
-                Me_score += 1
-                print(f"Score:- ME :- {Me_score} : COM :- {Com_score}")
+                me_score += 1
+                print(f"Score:- ME :- {me_score} : COM :- {com_score}")
 
         elif (query == "paper"):
             if (com_choose == "rock"):
                 speak("ROCK")
-                Me_score += 1
-                print(f"Score:- ME :- {Me_score + 1} : COM :- {Com_score}")
+                me_score += 1
+                print(f"Score:- ME :- {me_score + 1} : COM :- {com_score}")
 
             elif (com_choose == "paper"):
                 speak("paper")
-                print(f"Score:- ME :- {Me_score} : COM :- {Com_score}")
+                print(f"Score:- ME :- {me_score} : COM :- {com_score}")
             else:
                 speak("Scissors")
-                Com_score += 1
-                print(f"Score:- ME :- {Me_score} : COM :- {Com_score}")
+                com_score += 1
+                print(f"Score:- ME :- {me_score} : COM :- {com_score}")
 
         elif (query == "scissors" or query == "scissor"):
             if (com_choose == "rock"):
                 speak("ROCK")
-                Com_score += 1
-                print(f"Score:- ME :- {Me_score} : COM :- {Com_score}")
+                com_score += 1
+                print(f"Score:- ME :- {me_score} : COM :- {com_score}")
             elif (com_choose == "paper"):
                 speak("paper")
-                Me_score += 1
-                print(f"Score:- ME :- {Me_score} : COM :- {Com_score}")
+                me_score += 1
+                print(f"Score:- ME :- {me_score} : COM :- {com_score}")
             else:
                 speak("Scissors")
-                print(f"Score:- ME :- {Me_score} : COM :- {Com_score}")
+                print(f"Score:- ME :- {me_score} : COM :- {com_score}")
         i += 1
 
-    print(f"FINAL SCORE :- ME :- {Me_score} : COM :- {Com_score}")
+    print(f"FINAL SCORE :- ME :- {me_score} : COM :- {com_score}")
 
 
 logging.disable(logging.WARNING)
