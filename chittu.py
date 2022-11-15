@@ -34,7 +34,7 @@ if __name__ == "__main__":
             elif "close" in query:
                 closeappweb(query)
 
-            elif 'buy jarvis' in query:
+            elif "by" in query:
                 exit()
 
             elif 'bhai jarvis' in query:

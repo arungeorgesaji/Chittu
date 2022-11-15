@@ -46,6 +46,8 @@ def wishMe():
 
 def wiki(query):
     speak('Searching Wikipedia...')
+    query = query.replace('wikipedia', '')
+    query = query.replace('feature', '')
     results = wikipedia.summary(query, sentences=1)
     speak("According to Wikipedia")
     print(results)
