@@ -1,7 +1,7 @@
 from function import *
 
 if __name__ == "__main__":
-    wishMe()
+    wishme()
 
     while True:
 
@@ -45,9 +45,6 @@ if __name__ == "__main__":
 
             elif 'internet speed' in query:
                 internet_speed()
-
-            elif 'rock paper scissors' in query:
-                rock_paper_scissors()
 
             elif 'video game' in query:
                 spaceship_war()

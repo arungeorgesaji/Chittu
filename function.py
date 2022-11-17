@@ -31,12 +31,12 @@ engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
 
-def wishMe():
+def wishme():
     hour = int(datetime.datetime.now().hour)
-    if hour>=0 and hour<12:
+    if hour >= 0 and hour < 12:
         speak("Good Morning!")
 
-    elif hour>=12 and hour<18:
+    elif hour >= 12 and hour < 18:
         speak("Good Afternoon!")
 
     else:
@@ -85,7 +85,7 @@ def takecommand():
             print("Recognizing...")
 
             #query = r.recognize_houndify(audio, 'tta9-FhirHytE2PGtmbk9Q==','mm_LZwma-32RBJ8FDFIvlx2NlOi2FSkbXEIujEfyc1hWZE1Ki1mGwnBKphEVs0B74FDnD3MAJeMx7qaiiWGLkQ==')
-            query = r.recognize_houndify(audio, 'QGNyQu2u80ZIo5jc1k20ig==','PS56AFbKi6M9OyUp3srnviGoS6so5XpowQm_L-3DwxHmKlFrf7IZ2SBpYqsi_RZs9Q4Fa2LH-wzk7_7efDyJXw==')
+            query = r.recognize_houndify(audio, 'QGNyQu2u80ZIo5jc1k20ig==', 'PS56AFbKi6M9OyUp3srnviGoS6so5XpowQm_L-3DwxHmKlFrf7IZ2SBpYqsi_RZs9Q4Fa2LH-wzk7_7efDyJXw==')
 
             if query == '':
                 print('say that again please')
@@ -95,10 +95,12 @@ def takecommand():
                 print(f"User said: {query}\n")
             return query
 
+
 def speak(audio):
 
     engine.say(audio)
     engine.runAndWait()
+
 
 def latestnews():
 
@@ -242,7 +244,7 @@ def searchgoogle(query):
 
         try:
             pywhatkit.search(query)
-            result = googleScrap.summary(query,1)
+            result = googleScrap.summary(query, 1)
             speak(result)
 
         except:
@@ -269,62 +271,6 @@ def internet_speed():
     print("Wifi download speed is ", download_net)
     speak(f"Wifi download speed is {download_net}")
     speak(f"Wifi Upload speed is {upload_net}")
-
-
-def rock_paper_scissors():
-
-    speak("Lets Play ROCK PAPER SCISSORS !!")
-    print("LETS PLAYYYYYYYYYYYYYY")
-    i = 0
-    me_score = 0
-    com_score = 0
-    while (i < 5):
-        choose = ("rock", "paper", "scissors")  # Tuple
-        com_choose = random.choice(choose)
-        query = takecommand().lower()
-        if (query == "rock"):
-            if (com_choose == "rock"):
-                speak("ROCK")
-                print(f"Score:- ME :- {me_score} : COM :- {com_score}")
-            elif (com_choose == "paper"):
-                speak("paper")
-                com_score += 1
-                print(f"Score:- ME :- {me_score} : COM :- {com_score}")
-            else:
-                speak("Scissors")
-                me_score += 1
-                print(f"Score:- ME :- {me_score} : COM :- {com_score}")
-
-        elif (query == "paper"):
-            if (com_choose == "rock"):
-                speak("ROCK")
-                me_score += 1
-                print(f"Score:- ME :- {me_score + 1} : COM :- {com_score}")
-
-            elif (com_choose == "paper"):
-                speak("paper")
-                print(f"Score:- ME :- {me_score} : COM :- {com_score}")
-            else:
-                speak("Scissors")
-                com_score += 1
-                print(f"Score:- ME :- {me_score} : COM :- {com_score}")
-
-        elif (query == "scissors" or query == "scissor"):
-            if (com_choose == "rock"):
-                speak("ROCK")
-                com_score += 1
-                print(f"Score:- ME :- {me_score} : COM :- {com_score}")
-            elif (com_choose == "paper"):
-                speak("paper")
-                me_score += 1
-                print(f"Score:- ME :- {me_score} : COM :- {com_score}")
-            else:
-                speak("Scissors")
-                print(f"Score:- ME :- {me_score} : COM :- {com_score}")
-        i += 1
-
-    print(f"FINAL SCORE :- ME :- {me_score} : COM :- {com_score}")
-
 
 logging.disable(logging.WARNING)
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
@@ -507,17 +453,15 @@ def num_guess_game():
             dif = input('difficulty:')
             dif.islower()
 
-        if dif =='easy':
-                print('type  number between 1 to 10 or type stop to stop guessing')
-                speak('type  number between 1 to 10 or type stop to stop guessing')
-                num = input('number:')
-
+        if dif == 'easy':
+            print('type  number between 1 to 10 or type stop to stop guessing')
+            speak('type  number between 1 to 10 or type stop to stop guessing')
+            num = input('number:')
 
         if dif == 'medium':
                 print('type  number between 1 to 100 or type stop to stop guessing')
                 speak('type  number between 1 to 100 or type stop to stop guessing')
                 num = input('number:')
-
 
         if dif == 'hard':
                 print('type  number between 1 to 1000 or type stop to stop guessing')
@@ -698,8 +642,6 @@ def download():
             speak('there seems to be a problem')
             print('returning to the main program')
             speak('returning to the main program')
-
-
 
     Button(root, text='DOWNLOAD', font='arial 25 bold', bg='pale violet red', padx=2, command=Downloader).place(x=550,
                                                                                                                 y=400)
@@ -932,10 +874,3 @@ def brightness():
         print('thats not a number between 1 to 100,brightness not changed,returning to the main program.')
         speak('thats not a number between 1 to 100,brightness not changed,returning to the main program.')
         pass
-
-
-
-
-
-
-
