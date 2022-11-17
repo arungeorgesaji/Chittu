@@ -22,9 +22,6 @@ if __name__ == "__main__":
             elif 'news' in query:
                 latestnews()
 
-            elif 'temperature' == query:
-                temp()
-
             elif 'weather' in query:
                 weth()
 
@@ -35,9 +32,6 @@ if __name__ == "__main__":
                 closeappweb(query)
 
             elif "by" in query:
-                exit()
-
-            elif 'bhai jarvis' in query:
                 exit()
 
             elif "youtube" in query:
@@ -63,9 +57,6 @@ if __name__ == "__main__":
 
             elif 'generate password' in query:
                 password()
-
-            elif query == "none":
-                pass
 
             elif 'sleep' in query:
                 sleep()

@@ -79,11 +79,13 @@ def takecommand():
     while query == '':
         r = sr.Recognizer()
         with sr.Microphone() as source:
-            r.adjust_for_ambient_noise(source, duration=0.2)
+            r.adjust_for_ambient_noise(source)
             print("Listening...")
             audio = r.listen(source)
             print("Recognizing...")
-            query = r.recognize_houndify(audio, 'tta9-FhirHytE2PGtmbk9Q==', 'mm_LZwma-32RBJ8FDFIvlx2NlOi2FSkbXEIujEfyc1hWZE1Ki1mGwnBKphEVs0B74FDnD3MAJeMx7qaiiWGLkQ==')
+
+            #query = r.recognize_houndify(audio, 'tta9-FhirHytE2PGtmbk9Q==','mm_LZwma-32RBJ8FDFIvlx2NlOi2FSkbXEIujEfyc1hWZE1Ki1mGwnBKphEVs0B74FDnD3MAJeMx7qaiiWGLkQ==')
+            query = r.recognize_houndify(audio, 'QGNyQu2u80ZIo5jc1k20ig==','PS56AFbKi6M9OyUp3srnviGoS6so5XpowQm_L-3DwxHmKlFrf7IZ2SBpYqsi_RZs9Q4Fa2LH-wzk7_7efDyJXw==')
 
             if query == '':
                 print('say that again please')
@@ -166,14 +168,41 @@ dictapp = {"commandprompt": "cmd", "paint": "paint", "word": "winword", "excel":
            "vscode": "code", "powerpoint": "powerpnt"}
 
 def openappweb(query):
-
+    error_catcher = 0
     speak("Launching, sir")
-    if ".com" in query or ".co.in" in query or ".org" in query:
+
+    if "dot com" in query or "dot org" in query or ".com" in query or ".org" in query:
         query = query.replace("open", "")
-        query = query.replace("jarvis", "")
-        query = query.replace("launch", "")
-        query = query.replace(" ", "")
-        webbrowser.open(f"https://www.{query}")
+        query = query.replace("feature", "")
+
+        if "dot com" in query:
+            error_catcher += 1
+        if "dot org" in query:
+            error_catcher += 1
+        if ".com" in query:
+            error_catcher += 1
+        if ".org" in query:
+            error_catcher += 1
+
+
+        if error_catcher == 1:
+
+            if "dot com" in query or ".com" in query:
+                query = query.replace("com", "")
+                query = query.replace("dot", "")
+                query = query.replace(".", "")
+                query = query.replace(" ", "")
+                webbrowser.open(f"https://www.{query}.com")
+
+            elif "dot org" in query or ".org" in query:
+                query = query.replace("org", "")
+                query = query.replace("dot", "")
+                query = query.replace(".", "")
+                query = query.replace(" ", "")
+                webbrowser.open(f"https://www.{query}.org")
+
+
+
     else:
         keys = list(dictapp.keys())
         for app in keys:
@@ -184,42 +213,10 @@ def openappweb(query):
 def closeappweb(query):
 
     speak("Closing,sir")
-    if "one tab" in query or "1 tab" in query:
-        pyautogui.hotkey("ctrl", "w")
-        speak("All tabs closed")
-    elif "2 tab" in query:
-        pyautogui.hotkey("ctrl", "w")
-        sleep(0.5)
-        pyautogui.hotkey("ctrl", "w")
-        speak("All tabs closed")
-    elif "3 tab" in query:
-        pyautogui.hotkey("ctrl", "w")
-        sleep(0.5)
-        pyautogui.hotkey("ctrl", "w")
-        sleep(0.5)
-        pyautogui.hotkey("ctrl", "w")
-        speak("All tabs closed")
 
-    elif "4 tab" in query:
+    if 'tab' in query:
         pyautogui.hotkey("ctrl", "w")
-        sleep(0.5)
-        pyautogui.hotkey("ctrl", "w")
-        sleep(0.5)
-        pyautogui.hotkey("ctrl", "w")
-        sleep(0.5)
-        pyautogui.hotkey("ctrl", "w")
-        speak("All tabs closed")
-    elif "5 tab" in query:
-        pyautogui.hotkey("ctrl", "w")
-        sleep(0.5)
-        pyautogui.hotkey("ctrl", "w")
-        sleep(0.5)
-        pyautogui.hotkey("ctrl", "w")
-        sleep(0.5)
-        pyautogui.hotkey("ctrl", "w")
-        sleep(0.5)
-        pyautogui.hotkey("ctrl", "w")
-        speak("All tabs closed")
+        speak("tab has been closed")
 
     else:
         keys = list(dictapp.keys())
@@ -230,9 +227,8 @@ def closeappweb(query):
 def searchyoutube(query):
 
         speak("This is what I found for your search!")
-        query = query.replace("youtube search", "")
         query = query.replace("youtube", "")
-        query = query.replace("jarvis", "")
+        query = query.replace("feature", "")
         web = "https://www.youtube.com/results?search_query=" + query
         webbrowser.open(web)
         speak("Done, Sir")
@@ -240,9 +236,8 @@ def searchyoutube(query):
 def searchgoogle(query):
 
         import wikipedia as googleScrap
-        query = query.replace("jarvis","")
-        query = query.replace("google search","")
-        query = query.replace("google","")
+        query = query.replace("feature", "")
+        query = query.replace("google", "")
         speak("This is what I found on google")
 
         try:
@@ -477,8 +472,8 @@ def num_guess_game():
     while not lb:
 
         if dif == 'help':
-            print("there are three dificulties easy,medium,hard,insane easy is random number from 1 to 10 medium is from 1 to 100 hard is from 1 to 1,000 and insane from 1 to 10,000")
-            speak("there are three dificulties easy,medium,hard,insane easy is random number from 1 to 10 medium is from 1 to 100 hard is from 1 to 1,000 and insane from 1 to 10,000")
+            print("there are four dificulties easy,medium,hard,insane easy is random number from 1 to 10 medium is from 1 to 100 hard is from 1 to 1,000 and insane from 1 to 10,000")
+            speak("there are four dificulties easy,medium,hard,insane easy is random number from 1 to 10 medium is from 1 to 100 hard is from 1 to 1,000 and insane from 1 to 10,000")
             dif = input('difficulty:')
             dif.islower()
 
