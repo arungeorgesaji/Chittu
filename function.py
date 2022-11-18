@@ -74,27 +74,23 @@ def exit():
 
 def takecommand():
 
-    query = ''
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        r.pause_threshold = 1
+        r.adjust_for_ambient_noise(source)
+        print("Listening...")
+        audio = r.listen(source)
 
-    while query == '':
-        r = sr.Recognizer()
-        with sr.Microphone() as source:
-            r.adjust_for_ambient_noise(source)
-            print("Listening...")
-            audio = r.listen(source)
-            print("Recognizing...")
+    try:
+        print("Recognizing...")
+        query = r.recognize_google(audio)
+        print(f"User said: {query}\n")
 
-            #query = r.recognize_houndify(audio, 'tta9-FhirHytE2PGtmbk9Q==','mm_LZwma-32RBJ8FDFIvlx2NlOi2FSkbXEIujEfyc1hWZE1Ki1mGwnBKphEVs0B74FDnD3MAJeMx7qaiiWGLkQ==')
-            query = r.recognize_houndify(audio, 'QGNyQu2u80ZIo5jc1k20ig==', 'PS56AFbKi6M9OyUp3srnviGoS6so5XpowQm_L-3DwxHmKlFrf7IZ2SBpYqsi_RZs9Q4Fa2LH-wzk7_7efDyJXw==')
-
-            if query == '':
-                print('say that again please')
-                speak('say that again please')
-
-            else:
-                print(f"User said: {query}\n")
-            return query
-
+    except Exception as e:
+        print("Say that again please...")
+        speak("Say that again please...")
+        query = 'error'
+    return query
 
 def speak(audio):
 
@@ -120,6 +116,7 @@ def latestnews():
     for key, value in api_dict.items():
         if key.lower() in field.lower():
             url = value
+
             print(url)
             print("url was found")
             break
