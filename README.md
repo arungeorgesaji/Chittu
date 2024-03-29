@@ -70,11 +70,6 @@ To get started with the AI Assistant project:
 - Train the model using the provided training script.
 - Run the main script to interact with the assistant.
 
-## Contributors
-- Arun George Saji
-- Edwin Paul Binu
-
-
 The AI assistant supports the following functions:
 - **Wikipedia Search**: Retrieve information from Wikipedia.
 - **Time**: Get the current time.
@@ -114,13 +109,27 @@ The AI assistant supports the following functions:
 - **main.py**: Training script for the neural network model.
 - **chittu.py**: Main script for interacting with the trained assistant and also you the other functions available.
 
-## Getting Started
-To get started with the AI Assistant project:
-- Clone the repository to your local machine.
-- Install the required dependencies using `pip`.
-- Prepare the intents data in JSON format.
-- Train the model using the provided training script.
-- Run the main script to interact with the assistant.
+## Installation
+1. Clone the repository:
+
+       git clone https://github.com/arungeorgesaji/chittu.git
+
+2. Install dependencies:
+
+       pip install nltk numpy pyttsx3 wikipedia webbrowser SpeechRecognition requests pyautogui beautifulsoup4 pypokedex keyboard wmi pywhatkit speedtest-cli PyPDF2 pytube3 screen-brightness-control pygame tensorflow
+
+
+3. change directory to Chittu:
+
+       cd Chittu
+   
+4. Train the AI model:
+
+       python main.py
+
+5. Run Chittu
+
+       python chittu.py
 
 ## Contributors
 - Arun George Saji
